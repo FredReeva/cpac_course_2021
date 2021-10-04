@@ -1,29 +1,57 @@
 import ddf.minim.*;
 import ddf.minim.analysis.*;
+final float EPS = 0.000000001;
 
-
-float compute_flatness(){
-  return random(3);
+float spectral_sum(FFT fft, int K){
+  float sum = 0;
+  for(int k=0; k<K; k++){
+    sum += fft.getBand(k);
+  }
+  return sum;
 }
 
-float compute_centroid(){
-    return random(3);
+float compute_flatness(FFT fft, int K){
+  float flatness = 0;
+  float prod = 0;
+  for(int k=0; k<K; k++){
+    prod *= fft.getBand(k);
+  }
+  flatness = K*pow(prod, 1/K)/(spectral_sum(fft, K)+EPS);
+  return flatness;
+}
+
+float compute_centroid(FFT fft, int K, float[] freqs){
+  float centroid = 0;
+  float sum = 0;
+  for(int k=0; k<K; k++){
+    sum += freqs[k]*fft.getBand(k);
+  }
+  centroid = sum/(spectral_sum(fft, K)+EPS);
+  return centroid;
 }
 
 float compute_spread(){
-  return random(3);
+  return random(0);
 }
 
 float compute_skewness(){
-  return random(3);  
+  return random(0);  
 }
 
-float compute_entropy(){
-  return random(3);
+float compute_entropy(FFT fft, int K){
+  float entropy = 0;
+  float sum = 0;
+  
+  for(int k=0; k<K; k++){
+    sum += fft.getBand(k)*log(fft.getBand(k)+EPS);
+  }
+
+  entropy = -sum/log(K);
+  return entropy;
 }
 
 float compute_energy() {    
-  return random(3);
+  return random(0);
 }
 class AgentFeature { 
   float sampleRate;
@@ -68,11 +96,11 @@ class AgentFeature {
   void reasoning(AudioBuffer mix){
      this.fft.forward(mix);
      this.beat.detect(mix);
-     float centroid = compute_centroid();
-     float flatness = compute_flatness();
+     float centroid = compute_centroid(this.fft, this.K, this.freqs);
+     float flatness = compute_flatness(this.fft, this.K);
      float spread = compute_spread();                                  
      float skewness= compute_skewness();
-     float entropy = compute_entropy();     
+     float entropy = compute_entropy(this.fft, this.K);     
      float energy = compute_energy();
      
      this.centroid = centroid;    
