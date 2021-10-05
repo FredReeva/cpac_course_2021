@@ -30,12 +30,26 @@ float compute_centroid(FFT fft, int K, float[] freqs){
   return centroid;
 }
 
-float compute_spread(){
-  return random(0);
+float compute_spread(FFT fft, int K, float[] freqs, float centroid){
+  float spread = 0;
+  float sum = 0;
+  for(int k=0; k<K; k++){
+    sum += pow(freqs[k]-centroid, 2)*fft.getBand(k);
+  }
+  spread = sqrt(sum/(spectral_sum(fft, K)+EPS)); // why 'sqrt'?
+  return spread;
 }
 
-float compute_skewness(){
-  return random(0);  
+float compute_skewness(FFT fft, int K, float[] freqs, float centroid, float spread){
+  float skewness = 0;
+  float sum = 0;
+
+  for(int k=0; k<K; k++){
+    sum += pow(freqs[k]-centroid, 3)*fft.getBand(k);
+  }
+
+  skewness = sum/(K*pow(spread, 3)+EPS);
+  return skewness;
 }
 
 float compute_entropy(FFT fft, int K){
@@ -46,7 +60,7 @@ float compute_entropy(FFT fft, int K){
     sum += fft.getBand(k)*log(fft.getBand(k)+EPS);
   }
 
-  entropy = -sum/log(K);
+  entropy = sum/(log(K)+EPS); // missing '-'?
   return entropy;
 }
 
@@ -98,8 +112,8 @@ class AgentFeature {
      this.beat.detect(mix);
      float centroid = compute_centroid(this.fft, this.K, this.freqs);
      float flatness = compute_flatness(this.fft, this.K);
-     float spread = compute_spread();                                  
-     float skewness= compute_skewness();
+     float spread = compute_spread(this.fft, this.K, this.freqs, this.centroid);                                  
+     float skewness= compute_skewness(this.fft, this.K, this.freqs, this.centroid, this.spread);
      float entropy = compute_entropy(this.fft, this.K);     
      float energy = compute_energy();
      
