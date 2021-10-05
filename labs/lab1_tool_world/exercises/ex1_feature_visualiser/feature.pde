@@ -50,7 +50,6 @@ float compute_skewness(FFT fft, int K, float[] freqs, float centroid, float spre
 
   skewness = sum/(K*pow(spread, 3)+EPS);
   return skewness;
-
 }
 
 float compute_entropy(FFT fft, int K){
@@ -62,7 +61,6 @@ float compute_entropy(FFT fft, int K){
   }
 
   entropy = sum/(log(K)+EPS); // missing '-'?
-
   return entropy;
 }
 
