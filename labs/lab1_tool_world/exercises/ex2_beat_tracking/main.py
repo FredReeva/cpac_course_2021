@@ -21,8 +21,10 @@ filename_out=os.path.join(DATA_DIR, "tire_disco.wav") #
 # %% 1) Load a song
 
 SR=16000
-y = np.zeros((3,))
- #your code here
+# y = np.zeros((3,))
+# your code here
+y, _ = librosa.load(filename_in, sr=SR)
+
 # %% 2) Find the beats
 beats=your_code.compute_beats(y, sr=SR)
 
@@ -37,7 +39,8 @@ plt.legend()
 plt.show()
 # %% 3) Load a heavy kick
 # your code here
-kick = np.zeros((3,))
+# kick = np.zeros((3,))
+kick, _ = librosa.load(filename_kick, sr=SR)
 # %% 4 ) Put the kick on song at the correct beats
 
 y_out = your_code.add_samples(y, kick, beats)
@@ -56,5 +59,8 @@ plt.xlabel("Time [s]")
 plt.show()
 
 # %% 5) Write the final song 
-
 # your code here
+sf.write('new_beat.wav', y_out, SR)
+
+
+# %%
