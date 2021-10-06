@@ -6,8 +6,9 @@ import time
 import requests
 import urllib
 import numpy as np
-os.chdir(os.path.abspath(os.path.dirname(__file__)))
 import your_code
+os.chdir(os.path.abspath(os.path.dirname(__file__)))
+
 CREATE_SPOTIFY_PLAYLIST = True 
 # Set it to False and I will create a long file instead
 audio_feature_url="https://api.spotify.com/v1/audio-features"
@@ -20,6 +21,7 @@ create_playlist_url="https://api.spotify.com/v1/users/{user_id}/playlists"
 # 4) login
 # 5) agree 
 # 6) execute this cell and give the script the token (see above)
+# BQAqBvjgtm7x7cYiyOQVjvv5uFIYyEsPZSPDohtQeulqSTteXsD0GyYZKEYISuTCrP0NFPsaswbicH9_dgqMFJxr7vq4Q2CIYwLFqaFdMD-F-rQtLaN7E1lo0da64PCh07KMW0CFqEZU--JYNmH2pAHxOpSCOnmjJZ56OLVkVnM7Y3nDKOp7kBnCJhKbHfP6FjPb0MHDWMa_mQ
 if "token" not in locals(): # if you have not inserted the token 
     token=input("Please, give me your token\n")
 header={"Authorization": "Bearer %s"%token}
@@ -42,7 +44,11 @@ for id_ in ids:
     time.sleep(1) # wait 1 second between the questions
 # %% Now let's create some way to organize them!
 
-shuffled_songs=your_code.sort_songs(audio_features)
+shuffled_songs = your_code.sort_songs(audio_features)
+
+for song in shuffled_songs:
+    print(song['danceability'])
+    print(song)
 
 # %% Create the playlist
 # Go to https://open.spotify.com/ , top right corner, press "Account"
