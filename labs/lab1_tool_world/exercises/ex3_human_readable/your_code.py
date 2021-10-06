@@ -1,5 +1,5 @@
 import numpy as np
-TEACHER_CODE=True
+
 def sort_songs(audio_features):
     """"Receive audio features and sort them according to your criterion"
 
@@ -10,14 +10,15 @@ def sort_songs(audio_features):
         list of dict: the sorted list
     """
     sorted_songs=[]
+    dance = []
+    for song in audio_features:
+        dance.append(song['danceability'])
+    sorted_idxs = np.argsort(dance)
+    indices1 = list(sorted_idxs[0::2])
+    indices2 = list(sorted_idxs[1::2])
+    indices = np.append(indices1, indices2[::-1])
 
-    # Random shuffle: replace it!
-    if TEACHER_CODE:
-        random_idxs=np.random.permutation(len(audio_features))
-        for idx in random_idxs:
-            sorted_songs.append(audio_features[idx])
-    else:
-        pass
-        # your code here
+    for idx in indices:
+        sorted_songs.append(audio_features[idx])
         
     return sorted_songs
