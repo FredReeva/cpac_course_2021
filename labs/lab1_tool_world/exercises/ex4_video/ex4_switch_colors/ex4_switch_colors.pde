@@ -41,7 +41,7 @@ void changeColors(PImage img){
     r= red(img.pixels[loc]);
     g= green(img.pixels[loc]);
     b= blue(img.pixels[loc]);
-    img.pixels[loc]=color(g,b, r);    
+    img.pixels[loc]=color(b,r,g);    
   }
   // your code here;
   img.updatePixels();  
