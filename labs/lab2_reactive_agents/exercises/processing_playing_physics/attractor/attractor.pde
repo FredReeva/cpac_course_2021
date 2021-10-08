@@ -12,10 +12,12 @@ PVector pos_attractor;
 float radius_attractor;
 float area;
 float dist=0;
+float mult_factor = 0;
+final float GC = 10; //6.67e-11
 void setup(){
   mover=new AgentMover(10);
   mass_attractor=random(800, 1200);
-  pos_attractor = new PVector(width/2., height/2.);  
+  pos_attractor = new PVector(width/2, height/2);  
   radius_attractor = sqrt(mass_attractor/PI)*MASS_TO_PIXEL;
   
   oscP5 = new OscP5(this,55000);
@@ -27,6 +29,11 @@ void setup(){
 PVector computeGravityForce(AgentMover mover){
   PVector attr_force;
   /* your code here */
+  PVector distance = PVector.sub(pos_attractor,mover.position);
+  dist = distance.mag();
+  dist = constrain(dist, dist_min, dist_max);
+  mult_factor = GC*mover.mass*this.mass_attractor/pow(dist,2);
+  attr_force = distance.normalize().mult(mult_factor);
   return attr_force;
 }
 void sendEffect(float cutoff, float vibrato){

@@ -1,5 +1,5 @@
 
-float alpha=0.1;  
+float alpha=0.4;  
 float dist_min=50;
 float dist_max=100;
 
