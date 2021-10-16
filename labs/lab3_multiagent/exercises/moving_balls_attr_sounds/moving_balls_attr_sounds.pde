@@ -8,6 +8,8 @@ float MASS_TO_PIXEL=0.1;
 float mass_attractor;
 float radius_attractor=100;
 PVector pos_attractor;
+float al = 0.01;
+float a_min = 0.02;
 
 
 void setup(){
@@ -48,7 +50,9 @@ PVector computeGravityForce(AgentMover mover){
 
 int changeAmp(int i){
   /* your code here instead of this*/
-  float amp=1;
+  float dist = pos_attractor.dist(movers[i].position);
+  float amp = max(a_min,1/(1+al*dist));
+  
   samples[i].amp(amp);
   
   return int(amp*255);
