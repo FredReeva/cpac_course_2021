@@ -6,6 +6,7 @@ class Boid{
     Box2DProcessing  box2d;
     color defColor = color(200, 200, 200);
     color contactColor;
+    color nowColor = defColor;
     float time_index, dur_frames;
     int nextPoint;
     SoundFile sample;
@@ -32,11 +33,23 @@ class Boid{
     }
     void draw(){
         Vec2 posPixel=this.box2d.getBodyPixelCoord(this.body);
-        // your code here
+       
+        fill(this.nowColor);
+        stroke(0);
+        strokeWeight(0);        
+        ellipse(posPixel.x, posPixel.y, RADIUS_BOID, RADIUS_BOID);
         
     }
     void changeColor(){
       // your code here
+      if(time_index>0){
+        time_index -= 1;
+        this.nowColor = this.contactColor;
+      }
+      else{
+        time_index = 
+      }
+      
     }
     void play(){
      // your code here: check if it's already playing, before make it play again

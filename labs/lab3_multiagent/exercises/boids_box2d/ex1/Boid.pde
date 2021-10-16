@@ -3,6 +3,7 @@ class Boid{
     Box2DProcessing  box2d;
     color defColor = color(200, 200, 200);
     color contactColor;
+    float radiusP;
     
     Boid(Box2DProcessing  box2d, CircleShape ps, BodyDef bd, Vec2 position){
         this.box2d = box2d;    
@@ -19,6 +20,10 @@ class Boid{
     void draw(){
         /* your code*/
         // see box2d.getBodyPixelCoord(Body body);
+        Vec2 position = this.box2d.getBodyPixelCoord(this.body);
+        fill(200);
+        this.radiusP = W2P(ps.m_radius)*2; //! not working
+        ellipse(position.x, position.y, this.radiusP, this.radiusP);
  
     }
     void kill(){

@@ -5,6 +5,8 @@ float mass_attractor;
 PVector pos_attractor;
 float radius_attractor;
 float area;
+PVector force;
+
 void setup(){
   movers=new AgentMover[N_AGENTS];
   for(int i=0; i<N_AGENTS; i++){
@@ -36,5 +38,11 @@ void draw(){
   ellipse(pos_attractor.x, pos_attractor.y, 
           radius_attractor, radius_attractor);
   /* your code */
+  for(int i=0; i<N_AGENTS; i++){
+    force = computeGravityForce(movers[i]);
+    movers[i].applyForce(force);
+    movers[i].update();
+    movers[i].draw();
+  }
   
 }
