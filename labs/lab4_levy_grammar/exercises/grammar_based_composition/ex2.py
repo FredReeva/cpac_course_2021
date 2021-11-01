@@ -7,13 +7,16 @@ from classes import Composer, Grammar_Sequence
 octave_grammar={
     "S":["M", "SM"],
     "M": ["HH"],    
-    "H": ["h", "qq"],
+    "H": ["h", "QQ"],
+    "Q": ["oo", "q"],
+
     # your code here
 }
 
 octave_word_dur={"h":0.5, # half-measure
           "q":0.25, # quarter-measure
-          # your code here: add "o"}
+          "o": 0.125
+          }
 
 
 if __name__=="__main__":
@@ -29,3 +32,4 @@ if __name__=="__main__":
     C.create_sequence(G.sequence)
     C.write("out/"+fn_out)
     
+# %%

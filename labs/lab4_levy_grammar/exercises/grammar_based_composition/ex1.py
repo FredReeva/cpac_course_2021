@@ -23,3 +23,4 @@ if __name__=="__main__":
     C.create_sequence(G.sequence)
     C.write("out/"+fn_out)
     
+# %%

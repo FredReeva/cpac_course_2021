@@ -7,10 +7,22 @@ from classes import Composer, Grammar_Sequence
 
 slow_grammar={
     #your code here
+    "S":["M", "SM"],
+    "M": ["HH", "w", "$w"],    
+    "H": ["h", "$h", "ththth"],
+
+    # your code here
 }
 
 slow_word_dur= {
-    # your code here    }
+    # your code here 
+    "w": 1,
+    "h":0.5, # half-measure
+    "$w": 1,
+    "$h": 1/2,
+    "$q": 1/4,   
+    "th": 1/3,   
+}
 
 
 
@@ -27,3 +39,4 @@ if __name__=="__main__":
     C.create_sequence(G.sequence)
     C.write("out/"+fn_out)
     
+# %%

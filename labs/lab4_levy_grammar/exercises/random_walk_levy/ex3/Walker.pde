@@ -15,7 +15,11 @@ class Walker {
     PVector fromCenter=PVector.sub(this.position, CENTER_SCREEN);
     
     float normAngle= map(fromCenter.heading(), -PI, PI, 0, 1);
-    /* your code */
+
+    // hue(angle) sat(dist from center) bright
+    colorMode(HSB, 1, 1, 1);
+    strokeWeight(2);
+    stroke(normAngle,1 , fromCenter.normalize().mag());
     
     line(this.prevPosition.x, this.prevPosition.y,
          this.position.x, this.position.y);

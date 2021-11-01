@@ -7,11 +7,19 @@ from classes import Composer, Grammar_Sequence
 
 clave_grammar={
     #your code here
+    "S": ["M", "SM"],
+    
+    "R": ["o$ss$oo$ooq"],
 }
 
 
 clave_word_dur={
-    # your code here
+    "q": 1/4,
+    "o": 1/8,
+    "s": 1/16,
+    "$o": 1/8,
+    "$s": 1/16,
+
 }
 
 

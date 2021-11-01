@@ -25,7 +25,10 @@ class Walker {
          this.position.x, this.position.y);
   }
   void computeEffect(){
-     /* your code here*/
+     this.amp = this.position.y;
+     this.vibrato = PVector.sub(this.position, this.prevPosition).mag();
+     this.freq = this.position.x;
+     this.cutoff = 1;
   }
   
   void update() {    

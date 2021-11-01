@@ -39,7 +39,10 @@ float montecarlo() {
         R2=random(1);
      }
      if(MONTECARLO_STEPS==1){
-        /* your code */        
+        float k = 2;
+        R1=random(1);
+        R2=random(1);
+        p=pow((1-R1), k);       
      }
      
      if (R2<p){ return R1;}

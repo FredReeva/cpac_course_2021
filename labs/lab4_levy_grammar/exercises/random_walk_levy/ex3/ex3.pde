@@ -15,6 +15,7 @@ void draw() {
   // Run the walker object
   fill(0, ALPHA_BACKGROUND);
   strokeWeight(0);
+  stroke(0);
   rect(0,0,width, height);
   walker.update();
   walker.draw();  
