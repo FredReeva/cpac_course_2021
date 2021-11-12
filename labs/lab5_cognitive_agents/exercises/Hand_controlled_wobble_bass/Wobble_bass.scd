@@ -5,7 +5,7 @@ s.boot
 
 ServerOptions.outDevices;
 
-s.options.outDevice_('Altoparlanti MacBook Pro');
+s.options.outDevice_('MME : Microsoft Sound Mapper - Output, MME : Speakers (Realtek(R) Audio)');
 
 
 
@@ -43,7 +43,7 @@ h.set(\amp,0.5);
 
 // class B params
 h.set(\detune,0.001);
-h.set(\lfo,0);
+h.set(\lfo,0.1);
 
 // start communication with hand_detector client
 
@@ -60,8 +60,8 @@ x = OSCFunc( { | msg, time, addr, port |
 		// handle class A message (freq and amplitude)
 		if (msg[1]=='a'){
 			// Parse message
-			pyFreq = //...
-			pyAmp  = //...
+			pyFreq = msg[2].asFloat();
+			pyAmp  = msg[3].asFloat();
 			( "freq is " + pyFreq ).postln;
 			( "amp is " + pyAmp ).postln;
 
@@ -72,8 +72,8 @@ x = OSCFunc( { | msg, time, addr, port |
 		// handle class B message (detune and lfo)
 		if (msg[1]=='b'){
 			// parse message
-			pyDetune = //...
-			pyLfo = //...
+			pyDetune = msg[2].asFloat();
+			pyLfo = msg[3].asFloat();
 
 			// print info
 			( "Detuning is " + pyDetune ).postln;

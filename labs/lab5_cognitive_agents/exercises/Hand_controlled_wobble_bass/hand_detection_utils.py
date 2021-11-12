@@ -24,11 +24,11 @@ def segment(image, threshold=25):
 
     # Find the absolute difference between background and current image
     # FILL THE CODE
-    # diff = cv2.absdiff(bg.astype("uint8"), # ....? )
+    diff = cv2.absdiff(bg.astype("uint8"), image )
     
     # Threshold the diff image so that we get the foreground
     # FILL THE CODE
-    #thresholded = cv2.threshold(# ....?, # ....?, 255, cv2.THRESH_BINARY)[1]
+    thresholded = cv2.threshold(diff, threshold, 255, cv2.THRESH_BINARY)[1]
 
     # get the contours in the thresholded image
 
@@ -36,14 +36,18 @@ def segment(image, threshold=25):
 
     # return None, if no contours detected (contours is a list)
     # otherwise return: 
-    # - the segmented contour as the maximum one w.r.t. to the area # - the thresholded image
+    # - the segmented contour as the maximum one w.r.t. to the area 
+    # - the thresholded image
     # HINT: to the max() function you can pass an argument as key 
     #where the iterables are passed and comparison is performed based on its return value (use cv2.contourArea as key)
 
-    # if # FILL the code:
-    #  	FILL the code
-    # else
-    # 	FILL the code
+    if cnts:
+        segmented = max(cnts, key=cv2.contourArea)
+        return thresholded, segmented
+    else:
+        return
+        
+    	
 
 
     # Detect center of the palm
@@ -61,6 +65,6 @@ def detect_palm_center(segmented):
     extreme_right = tuple(chull[chull[:, :, 0].argmax()][0])[0]
 
     # Find the center of the palm
-    #c_x = # FILL THE CODE
-    #c_y = # FILL THE CODE 
+    c_x = int((extreme_left+extreme_right) / 2)
+    c_y = int((extreme_bottom+extreme_top) / 2)
     return c_x, c_y
